@@ -5,6 +5,7 @@ import chess
 
 from .search.base import Bot
 
+DRAW = 0.5
 
 class MatchResult:
     def __init__(self, bot_a, bot_b, games, wins_a, draws, wins_b):

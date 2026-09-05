@@ -34,7 +34,7 @@ def move_gain(board, move):
             gain+= pvalues[move.promotion] - pvalues[chess.PAWN]
     return gain
 
-class materialBot(Bot):
+class MaterialBot(Bot):
 
     name = "material"
 

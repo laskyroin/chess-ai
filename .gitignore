@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Data and artifacts
+data/
+runs/
+*.pt
+*.pgn
+*.zst
+*.npy
+
+# Claude Code local settings
+.claude/settings.local.json
+

@@ -32,13 +32,20 @@ del X, Y
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = ChessNet().to(device)
-
-max_steps = 15000
+opt = torch.optim.AdamW(model.parameters(), lr=1e-4)
+ckpt = torch.load("runs/ckpt_28000.pt", map_location=device)
+model.load_state_dict(ckpt["model"])
+opt.load_state_dict(ckpt["opt"])
+for pg in opt.param_groups:
+    pg["lr"] = 1e-4
+start = ckpt["step"]
+model.train()
+max_steps = 5000
 batch_size = 512
 lossi= []
-opt = torch.optim.AdamW(model.parameters(), lr=1e-3)
+
 Path("runs").mkdir(exist_ok=True)
-for i in range(max_steps):
+for i in range(start,start + max_steps):
 
     #batching
 
@@ -75,4 +82,8 @@ for i in range(max_steps):
     if i % 1000 == 0 and i > 0:
         torch.save({"model": model.state_dict(),
                     "opt": opt.state_dict(),
-                    "step": i}, "runs/ckpt.pt")
+                    "step": i}, f"runs/ckpt_{i}.pt")
+
+torch.save({"model": model.state_dict(),
+            "opt": opt.state_dict(),
+            "step": i}, f"runs/ckpt_{i}.pt")

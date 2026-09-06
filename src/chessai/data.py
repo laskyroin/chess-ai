@@ -112,4 +112,4 @@ def build_dataset(path, out_dir, max_games=None, seed=0):
     print(len(xs), "positions")
 
 
-build_dataset(path, "data/full")
+build_dataset(path, "data/full", max_games=2_500_000)
